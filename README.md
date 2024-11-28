@@ -61,4 +61,14 @@ now let suppose you have second item base price 400 , then 400-500 = -100 , now 
 revenue before promo per store = FACT_TABLE[base_price]*FACT_TABLE[quantity_sold(before_promo)]
 
 
+#Produce a report that calculates the Incremental Sold Quantity (ISU%) for each category during the Diwali campaign.  The report will include  key fields: category, isu%. This information will assist in assessing the category-wise success and impact of the Diwali campaign on incremental sales.
+
+ISQ%=((FACT_TABLE[total isq 1]/FACT_TABLE[total quantity before promo 1])*100)
+total isq 1 = SUM(FACT_TABLE[ISQ OF PRODUCT AS PER STORE])
+total quantity before promo 1 = SUM(FACT_TABLE[quantity_sold(before_promo)])
+ISQ OF PRODUCT AS PER STORE = (FACT_TABLE[quantity_sold(after_promo)]-FACT_TABLE[quantity_sold(before_promo)])
+
+
+
+
 
