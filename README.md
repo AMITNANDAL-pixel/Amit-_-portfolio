@@ -75,6 +75,7 @@ net IR % = ((FACT_TABLE[total revenue after promotion campagin across all store]
 ISQ OF PRODUCT AS PER STORE = (FACT_TABLE[quantity_sold(after_promo)]-FACT_TABLE[quantity_sold(before_promo)])
 
 
+![Picture1](https://github.com/user-attachments/assets/07e69852-16af-4621-8616-feb58afc23b3)
 
 
 
