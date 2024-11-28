@@ -66,6 +66,12 @@ revenue before promo per store = FACT_TABLE[base_price]*FACT_TABLE[quantity_sold
 ISQ%=((FACT_TABLE[total isq 1]/FACT_TABLE[total quantity before promo 1])*100)
 total isq 1 = SUM(FACT_TABLE[ISQ OF PRODUCT AS PER STORE])
 total quantity before promo 1 = SUM(FACT_TABLE[quantity_sold(before_promo)])
+
+# 5.	Create a report featuring the Top 5 products, ranked by Incremental Revenue Percentage (IR%), across all campaigns. The report will provide essential information including product name, category, and ir%. This analysis helps identify the most successful products in terms of incremental revenue across our campaigns, assisting in product optimization.
+
+
+net IR % = ((FACT_TABLE[total revenue after promotion campagin across all store]-FACT_TABLE[total revenue across all store before campagin])/FACT_TABLE[total revenue across all store before campagin])*100
+
 ISQ OF PRODUCT AS PER STORE = (FACT_TABLE[quantity_sold(after_promo)]-FACT_TABLE[quantity_sold(before_promo)])
 
 
