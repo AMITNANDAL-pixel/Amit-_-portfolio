@@ -36,6 +36,29 @@ create a measure
 
 premium product heavily discounted = FILTER(FACT_TABLE,FACT_TABLE[base_price]>500 && FACT_TABLE[promo_type]="BOGOF")
 
+# 2.	Generate a report that provides an overview of the number of stores in each city. The results will be sorted in descending order of store counts, allowing us to identify the cities with the highest store presence.The report includes two essential fields: city and store count, which will assist in optimizing our retail operations.
+
+create a measure
+number of store = CALCULATE(COUNT(FACT_TABLE[store_id]),ALLEXCEPT(dim_store,dim_store[city]))
+
+# 3.	Generate a report that displays each campaign along with the total revenue generated before and after the campaign? The report includes three key fields: campaign_name, total_revenue(before_promotion), total_revenue(after_promotion). This report should help in evaluating the financial impact of our promotional campaigns. (Display the values in millions)
+
+total revenue after promotion campagin across all store = SUM(FACT_TABLE[revenue after promo per store])
+total revenue across all store before campagin = SUM(FACT_TABLE[revenue before promo per store])
+
+revenue after promo per store = SWITCH(TRUE(),
+FACT_TABLE[promo_type]="BOGOF",FACT_TABLE[base_price]*(FACT_TABLE[quantity_sold(after_promo)]/2),
+FACT_TABLE[product_code]="25% OFF",FACT_TABLE[base_price]*0.75*FACT_TABLE[quantity_sold(after_promo)],
+FACT_TABLE[promo_type]="50% OFF",FACT_TABLE[base_price]*0.50*FACT_TABLE[quantity_sold(after_promo)],
+FACT_TABLE[product_code]="33% OFF",FACT_TABLE[base_price]*0.67*FACT_TABLE[quantity_sold(after_promo)],
+FACT_TABLE[promo_type]="500 Cashback",MAX(0,FACT_TABLE[base_price]-500)*FACT_TABLE[quantity_sold(after_promo)],
+FACT_TABLE[base_price]*FACT_TABLE[quantity_sold(after_promo)])
+
+MAX() function here ,use to stoping the base price to negative .negative base price do not have any sense . let suppose some  say item1 base price 600 ,now after 500 cashback ,customer have to pay 100. now max will choose max value between (0,100) which is 100.
+
+now let suppose you have second item base price 400 , then 400-500 = -100 , now negative does not make any sense here , either we will take some amount ,either we will take zero amount after discount ,in that case max (0,-100) ,it will select the zero .
+
+revenue before promo per store = FACT_TABLE[base_price]*FACT_TABLE[quantity_sold(before_promo)]
 
 
 
