@@ -48,9 +48,9 @@ total revenue across all store before campagin = SUM(FACT_TABLE[revenue before p
 
 revenue after promo per store = SWITCH(TRUE(),
 FACT_TABLE[promo_type]="BOGOF",FACT_TABLE[base_price]*(FACT_TABLE[quantity_sold(after_promo)]/2),
-FACT_TABLE[product_code]="25% OFF",FACT_TABLE[base_price]*0.75*FACT_TABLE[quantity_sold(after_promo)],
-FACT_TABLE[promo_type]="50% OFF",FACT_TABLE[base_price]*0.50*FACT_TABLE[quantity_sold(after_promo)],
-FACT_TABLE[product_code]="33% OFF",FACT_TABLE[base_price]*0.67*FACT_TABLE[quantity_sold(after_promo)],
+FACT_TABLE[product_code]="25% OFF",FACT_TABLE[base_price]x 0.75xFACT_TABLE[quantity_sold(after_promo)],
+FACT_TABLE[promo_type]="50% OFF",FACT_TABLE[base_price]x0.50xFACT_TABLE[quantity_sold(after_promo)],
+FACT_TABLE[product_code]="33% OFF",FACT_TABLE[base_price]x0.67xFACT_TABLE[quantity_sold(after_promo)],
 FACT_TABLE[promo_type]="500 Cashback",MAX(0,FACT_TABLE[base_price]-500)*FACT_TABLE[quantity_sold(after_promo)],
 FACT_TABLE[base_price]*FACT_TABLE[quantity_sold(after_promo)])
 
